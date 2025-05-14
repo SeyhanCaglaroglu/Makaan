@@ -1,0 +1,66 @@
+﻿@model GetByIdEstateAgentApplicationDto
+@{
+    ViewData["Title"] = "UpdateEstateAgentApplication";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Emlakçı Onay Sayfası</h5>
+
+                <form method="post">
+                    <input type="hidden" asp-for="EstateAgentApplicationId" />
+
+                    <div class="my-2">
+                        <label asp-for="CompanyName" class="f my-2">Şirket Adı</label>
+                        <input type="text" class="form-control my-2" asp-for="CompanyName" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="AuthorizedNameSurname" class="f my-2">Yetkili Adı</label>
+                        <input type="text" class="form-control my-2" asp-for="AuthorizedNameSurname" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="AuthorizedPhoneNumber" class="f my-2">Yetkili Numarası</label>
+                        <input type="text" class="form-control my-2" asp-for="AuthorizedPhoneNumber" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="CompanyEmail" class="f my-2">Şirket Email</label>
+                        <input type="text" class="form-control my-2" asp-for="CompanyEmail" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="City" class="f my-2">Şehir</label>
+                        <input type="text" class="form-control my-2" asp-for="City" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="Location" class="f my-2">Adres</label>
+                        <input type="text" class="form-control my-2" asp-for="Location" />
+                    </div>
+
+                    <div class="text-center mb-4 mt-3">
+                        <a href="/Admin/EstateAgentApplication/ApproveEstateAgentApplication/@Model.EstateAgentApplicationId" class="btn btn-success me-2 px-4 py-2">
+                            <i class="bi bi-check-circle"></i> Onayla
+                        </a>
+                        <a href="/Admin/EstateAgentApplication/DeleteEstateAgentApplication/@Model.EstateAgentApplicationId" class="btn btn-danger px-4 py-2">
+                            <i class="bi bi-x-circle"></i> Reddet
+                        </a>
+                    </div>
+
+                </form>
+
+
+
+
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/EstateAgentApplication/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+

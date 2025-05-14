@@ -1,0 +1,60 @@
+﻿@model CreatePropertyAgentDto
+@{
+    ViewData["Title"] = "CreatePropertyAgent";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Emlakçı Ekleme Sayfası</h5>
+
+                <form method="post" enctype="multipart/form-data">
+                    <div class="my-2">
+                        <label asp-for="Title" class="f mb-2">Emlakçı Adı</label>
+                        <input type="text" class="form-control mb-2" asp-for="Title" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="SubTitle" class="f mb-2">Ünvan</label>
+                        <textarea type="text" class="form-control mb-2" asp-for="SubTitle" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="my-2">
+                        <label asp-for="ImageUrl" class="f mb-2">Görsel</label>
+                        <input type="file" accept=".png,.jpg,.jpeg" class="form-control mb-2" name="ImageURL" />
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="FacebookAdress" class="f mb-2">Facebook Adresi</label>
+                        <input type="text" class="form-control mb-2" asp-for="FacebookAdress" />
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="InstagramAdress" class="f mb-2">Instagram Adresi</label>
+                        <input type="text" class="form-control mb-2" asp-for="InstagramAdress" />
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="TwitterAdress" class="f mb-2">Twitter Adresi</label>
+                        <input type="text" class="form-control mb-2" asp-for="TwitterAdress" />
+                    </div>
+
+                    <div class="Slider-center mb-4 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2 ">Ekle</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/PropertyAgent/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+
+

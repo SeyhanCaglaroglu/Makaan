@@ -1,0 +1,63 @@
+﻿@model GetByIdEstateAgentApplicationDto
+@{
+    ViewData["Title"] = "Detay";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section py-5" style="background-color: #f4f5f7;">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-dark fw-bold">Emlakçı Detayı</h1>
+            
+        </div>
+
+        <div class="card shadow-sm rounded">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Emlakçı Bilgileri</h5>
+            </div>
+            <div class="card-body mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="fw-bold">Şirket Adı:</label>
+                        <p>@Model.CompanyName</p>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Yetkili Adı:</label>
+                        <p>@Model.AuthorizedNameSurname</p>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Yetkili Numarası:</label>
+                        <p>@Model.AuthorizedPhoneNumber</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="fw-bold">Şirket Email:</label>
+                        <p>@Model.CompanyEmail</p>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Şehir:</label>
+                        <p>@Model.City</p>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Adres:</label>
+                        <p>@Model.Location</p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="card-footer text-end">
+                
+                <a href="/Admin/EstateAgent/DeleteEstateAgent/@Model.EstateAgentApplicationId&@Model.CompanyEmail" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Sil
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div>
+    <a href="/Admin/EstateAgent/Index" class="btn btn-secondary shadow-sm">
+        <i class="bi bi-arrow-left"></i> Geri Dön
+    </a>
+</div>

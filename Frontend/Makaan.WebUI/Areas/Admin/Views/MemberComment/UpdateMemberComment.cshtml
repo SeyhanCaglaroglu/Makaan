@@ -1,0 +1,55 @@
+﻿@model GetByIdMemberCommentDto
+@{
+    ViewData["Title"] = "UpdateMemberComment";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Yorum Güncelleme Sayfası</h5>
+
+                <form method="post">
+                    <input type="hidden" asp-for="MemberCommentId" />
+
+                    <div class="my-2">
+                        <label asp-for="MemberName" class="f my-2">Üye Adı</label>
+                        <input type="text" class="form-control my-2" asp-for="MemberName" readonly />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="Comment" class="f my-2">Yorum</label>
+                        <textarea type="text" class="form-control my-2" asp-for="Comment" readonly rows="3"></textarea>
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="Status" class="f my-2">Yorum Durumu</label>
+                        <select class="form-control my-2" name="CommentStatus">
+                            <option value="" disabled selected hidden>Yorum Durumunu Seçiniz</option>
+                            <option value="Aktif">Aktif</option>
+                            <option value="Pasif">Pasif</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="text-center mb-4 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2 ">Güncelle</button>
+                    </div>
+
+                </form>
+
+
+
+
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/MemberComment/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+

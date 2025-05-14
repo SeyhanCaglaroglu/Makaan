@@ -1,0 +1,36 @@
+﻿@model CreatePropertyIntroPosterDto
+@{
+    ViewData["Title"] = "CreatePropertyIntroPoster";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Giriş Yazısı Ekleme Sayfası</h5>
+
+                <form method="post" enctype="multipart/form-data">
+                    <div class="my-2">
+                        <label asp-for="PosterUrl" class="f mb-2">Açıklama</label>
+                        <input type="file" accept=".png,.jpg,.jpeg" class="form-control mb-2" name="ImageURL" />
+                    </div>
+
+                    <div class="Slider-center mb-4 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2 ">Ekle</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/PropertyIntroPoster/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+
+

@@ -1,0 +1,60 @@
+﻿@model List<ResultPropertyDetailDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+    int count = 0;
+}
+
+<section class="section py-5" style="background-color: #f4f5f7;">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-dark fw-bold">Mülk Detayı</h1>
+            
+                <a href="/Admin/PropertyDetail/CreatePropertyDetail/@ViewBag.Id" class="btn btn-primary shadow-sm">
+                    <i class="bi bi-plus-circle"></i> Mülk Detayı Ekle
+                </a>
+            
+        </div>
+
+        <div class="table-responsive rounded shadow-sm bg-white p-4">
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col" class="col-5">Mülk Açıklaması</th>
+                        <th scope="col" class="col-4">Mülk Bilgisi</th>
+                        <th scope="col" class="col-1">Sil</th>
+                        <th scope="col" class="col-1">Güncelle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr class="text-center">
+                            <td class="col-1">@count</td>
+                            <td class="col-5">@Html.Raw(item.Description)</td> 
+                            <td class="col-4">@Html.Raw(item.Information)</td>
+                            <td class="col-1">
+                                <!-- Sil Butonu -->
+                                <a href="/Admin/PropertyDetail/DeletePropertyDetail?id=@item.PropertyDetailId">
+                                    <i class="bi bi-trash fs-4 text-danger"></i>
+                                </a>
+                            </td>
+                            <td class="col-1">
+                                <!-- Güncelle Butonu -->
+                                <a href="/Admin/PropertyDetail/UpdatePropertyDetail/@item.PropertyDetailId">
+                                    <i class="bi bi-pencil-square fs-4 text-success"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<div>
+    <a href="/Admin/Property/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+</div>

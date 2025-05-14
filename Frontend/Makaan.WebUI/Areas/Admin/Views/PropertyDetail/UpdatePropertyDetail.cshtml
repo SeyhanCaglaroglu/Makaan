@@ -1,0 +1,46 @@
+﻿@model GetByIdPropertyDetailDto
+@{
+    ViewData["Title"] = "UpdatePropertyDetail";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mülk Detayı Güncelleme Sayfası</h5>
+
+                <form method="post">
+                    <input type="hidden" asp-for="PropertyDetailId" />
+                    <input type="hidden" asp-for="PropertyId" />
+
+                    <div class="my-2">
+                        <label asp-for="Description" class="f my-2">Mülk Açıklaması</label>
+                        <textarea type="text" class="form-control my-2 summernote" asp-for="Description" rows="4"></textarea>
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="Information" class="f my-2">Mülk Bilgisi</label>
+                        <textarea type="text" class="form-control my-2 summernote" asp-for="Information" rows="4"></textarea>
+                    </div>
+
+                    <div class="text-center mb-4 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2 ">Güncelle</button>
+                    </div>
+
+                </form>
+
+
+
+
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/PropertyDetail/Index?id=@Model.PropertyId" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+

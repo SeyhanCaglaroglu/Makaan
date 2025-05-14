@@ -1,0 +1,126 @@
+﻿@model NotificationViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+    int count = 0;
+}
+
+<section class="section py-5" style="background-color: #f4f5f7;">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-dark fw-bold">Bildirimler</h1>
+        </div>
+
+        <div class="row">
+            @if (Model != null && Model.CommentNotifications.Any())
+            {
+                <div class="table-responsive rounded shadow-sm bg-white p-4 ">
+                    <div class="text-center mb-3">
+                        <h4 class="text-dark fw-bold">Yorum Bildirimleri</h4>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a href="/Admin/Notification/DeleteAllCommentNotification" class="btn btn-outline-danger my-4"><i class="bi bi-trash text-danger me-1"></i>Tümünü Sil</a>
+                        <a href="/Admin/MemberComment/Index" class="btn btn-outline-dark">Yorumları Görüntüle</a>
+                    </div>
+
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr class="text-center">
+                                <th scope="col" class="col-1">#</th>
+                                <th scope="col" class="col-10">İçerik</th>
+                                <th scope="col" class="col-1">Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CommentNotifications)
+                            {
+                                count++;
+                                <tr class="text-center">
+                                    <td class="col-1">@count</td>
+                                    <td class="col-10">@item.Content</td>
+                                    <td class="col-1">
+                                        <a href="/Admin/Notification/DeleteCommentNotification?id=@item.CommentNotificationId">
+                                            <i class="bi bi-trash fs-4 text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            @if (Model != null && Model.ApplicationNotifications.Any())
+            {
+                <div class="table-responsive rounded shadow-sm bg-white p-4 @(!Model.CommentNotifications.Any() ? "" : "mt-5")">
+                    <div class="text-center mb-3">
+                        <h4 class="text-dark fw-bold">Başvuru Bildirimleri</h4>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a href="/Admin/Notification/DeleteAllApplicationNotification" class="btn btn-outline-danger my-4"><i class="bi bi-trash text-danger me-1"></i>Tümünü Sil</a>
+                        <a href="/Admin/EstateAgentApplication" class="btn btn-outline-dark">Başvuruları Görüntüle</a>
+                    </div>
+
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr class="text-center">
+                                <th scope="col" class="col-1">#</th>
+                                <th scope="col" class="col-10">İçerik</th>
+                                <th scope="col" class="col-1">Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ApplicationNotifications)
+                            {
+                                count++;
+                                <tr class="text-center">
+                                    <td class="col-1">@count</td>
+                                    <td class="col-10">@item.Content</td>
+                                    <td class="col-1">
+                                        <a href="/Admin/Notification/DeleteApplicationNotification?id=@item.ApplicationNotificationId">
+                                            <i class="bi bi-trash fs-4 text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            @if (Model != null && Model.AccountNotifications.Any())
+            {
+                <div class="table-responsive rounded shadow-sm bg-white p-4 @(!Model.ApplicationNotifications.Any() ? "" : "mt-5")">
+                    
+                    
+
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr class="text-center">
+                                <th scope="col" class="col-1">#</th>
+                                <th scope="col" class="col-10">Hesabınız Onaylandı !</th>
+                                <th scope="col" class="col-1">Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.AccountNotifications)
+                            {
+                                count++;
+                                <tr class="text-center">
+                                    <td class="col-1">@count</td>
+                                    <td class="col-10">@item.Content</td>
+                                    <td class="col-1">
+                                        <a href="/Admin/Notification/DeleteAccountNotification?id=@item.AccountNotificationId">
+                                            <i class="bi bi-trash fs-4 text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

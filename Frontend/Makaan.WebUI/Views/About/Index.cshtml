@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<!-- Header Start -->
+@await Component.InvokeAsync("_HeaderAboutComponentPartial")
+<!-- Header End -->
+<!-- Search Start -->
+@await Component.InvokeAsync("_SearchDefaultComponentPartial")
+<!-- Search End -->
+<!-- About Start -->
+@await Component.InvokeAsync("_AboutDefaultComponentPartial")
+<!-- About End -->
+<!-- Team Start -->
+@await Component.InvokeAsync("_TeamDefaultComponentPartial")
+<!-- Team End -->
+

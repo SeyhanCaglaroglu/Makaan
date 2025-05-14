@@ -1,0 +1,148 @@
+﻿@model GetByIdPropertyDto
+@{
+    ViewData["Title"] = "Mülk Güncelleme";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-light">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Mülk Güncelleme Sayfası</h5>
+
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="PropertyId" />
+
+                        <!-- Şuanki ve Görsel -->
+                        <div class="mb-2 text-center">
+                            <label class="f my-2 card-title">Şuanki Görsel</label>
+                            <div>
+                                <img id="PropertyImage" src="@Model.ImageUrl" class="img-fluid rounded" style="width: 100%; max-width: 400px; height: 270px;" />
+                            </div>
+                            <!-- Görsel Seç Butonu -->
+                            <div class="mt-2">
+                                <button type="button" id="PropertyFileButton" class="btn btn-outline-dark w-75 mt-3">Görsel Seç</button>
+                            </div>
+                            <!-- Dosya Girişi -->
+                            <input id="PropertyImageFile" name="ImageURL" type="file" accept=".png,.jpg,.jpeg" style="display:none;" />
+                        </div>
+
+
+                        <!-- Görsel Seçim -->
+                        <div class="mb-2">
+                            <input id="PropertyImageUrl" type="hidden" asp-for="ImageUrl" value="@Model.ImageUrl" />
+                        </div>
+
+                        <div class="mb-2">
+                            <input type="hidden" name="CurrentPicture" value="@Model.ImageUrl" />
+                        </div>
+
+                        <!-- Form Alanları -->
+                        <div class="my-2">
+                            <label asp-for="Title" class="f my-2">Başlık</label>
+                            <input type="text" class="form-control my-2" asp-for="Title" />
+                        </div>
+                        <div class="my-2">
+                            <label asp-for="City" class="f my-2">Şehir</label>
+                            <input type="text" class="form-control my-2" asp-for="City" />
+                        </div>
+                        <div class="my-2">
+                            <label asp-for="Location" class="f my-2">Adres</label>
+                            <input type="text" class="form-control my-2" asp-for="Location" />
+                        </div>
+                        <div class="my-2">
+                            <label asp-for="Price" class="f my-2">Fiyat</label>
+                            <input type="text" class="form-control my-2" asp-for="Price" />
+                        </div>
+                        <div class="my-2">
+                            <label asp-for="Status" class="f mb-2">Durum</label>
+                            <div class="position-relative">
+                                <select id="property-status" asp-for="Status" class="form-control mb-2">
+                                    <option value="Satılık">Satılık</option>
+                                    <option value="Kira">Kira</option>
+                                </select>
+                                <span class="position-absolute top-50 end-0 translate-middle-y me-2">
+                                    <i class="fa fa-caret-down"></i> <!-- İkon: ok simgesi -->
+                                </span>
+                            </div>
+                        </div>
+                        <div class="my-2">
+                            <label asp-for="Sqft" class="f my-2">Metrekare</label>
+                            <input type="text" class="form-control my-2" asp-for="Sqft" />
+                        </div>
+                        <div class="my-2">
+                            <label asp-for="BedCount" class="f my-2">Oda Sayısı</label>
+                            <input type="text" class="form-control my-2" asp-for="BedCount" />
+                        </div>
+                        <div class="my-2">
+                            <label asp-for="BathCount" class="f my-2">Banyo Sayısı</label>
+                            <input type="text" class="form-control my-2" asp-for="BathCount" />
+                        </div>
+
+                        @if (ViewBag.UserRole == "EstateAgent")
+                        {
+                            <input type="hidden" asp-for="PropertyAgentId" value="@ViewBag.propertyAgentId" />
+                        }
+                        else {
+                            <div class="my-2">
+                                <label asp-for="PropertyAgentId" class="f mb-2">Emlakçı</label>
+                                <div class="position-relative">
+                                    @Html.DropDownListFor(x => x.PropertyAgentId, (List<SelectListItem>)ViewBag.propertyAgentItems, new { @class = "form-control mb-2" })
+                                    <span class="position-absolute top-50 end-0 translate-middle-y me-2">
+                                        <i class="fa fa-caret-down"></i> <!-- İkon: ok simgesi -->
+                                    </span>
+                                </div>
+                            </div>
+                        }                        
+
+                        <div class="my-2">
+                            <label asp-for="PropertyTypeId" class="f mb-2">Mülk Tipi</label>
+                            <div class="position-relative">
+                                @Html.DropDownListFor(x => x.PropertyTypeId, (List<SelectListItem>)ViewBag.propertyTypeItems, new { @class = "form-control mb-2" })
+                                <span class="position-absolute top-50 end-0 translate-middle-y me-2">
+                                    <i class="fa fa-caret-down"></i> <!-- İkon: ok simgesi -->
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Güncelleme Butonu -->
+                        <div class="text-center mt-3">
+                            <button type="submit" id="btn-property-update" class="btn btn-primary px-4 py-2 w-100">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geri Butonu -->
+        <div class="mt-4">
+            <a href="/Admin/Property/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Görsel Seçme İşlemleri
+    document.getElementById('PropertyFileButton').addEventListener('click', function () {
+        document.getElementById('PropertyImageFile').click();
+    });
+
+    document.getElementById('PropertyImageFile').addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var imageElement = document.getElementById('PropertyImage');
+                var urlInput = document.getElementById('PropertyImageUrl');
+                if (imageElement && urlInput) {
+                    imageElement.src = e.target.result;
+                    urlInput.value = e.target.result;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+</script>

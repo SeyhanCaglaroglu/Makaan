@@ -1,0 +1,16 @@
+﻿@model List<ResultMemberCommentDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<!-- Header Start -->
+@await Component.InvokeAsync("_HeaderCommentComponentPartial")
+<!-- Header End -->
+<!-- Search Start -->
+@await Component.InvokeAsync("_SearchDefaultComponentPartial")
+<!-- Search End -->
+<!-- Testimonial Start -->
+@await Html.PartialAsync("Feature",Model ?? new List<ResultMemberCommentDto>())
+<!-- Testimonial End -->
+

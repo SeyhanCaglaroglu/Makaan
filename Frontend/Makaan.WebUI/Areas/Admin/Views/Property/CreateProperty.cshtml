@@ -1,0 +1,106 @@
+﻿@model CreatePropertyDto
+@{
+    ViewData["Title"] = "CreateProperty";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mülk Ekleme Sayfası</h5>
+
+                <form method="post" enctype="multipart/form-data">
+                    <div class="my-2">
+                        <label asp-for="Title" class="f mb-2">Başlık</label>
+                        <input type="text" class="form-control mb-2" asp-for="Title" />
+                    </div>
+                    
+                    <div class="my-2">
+                        <label asp-for="ImageUrl" class="f mb-2">Görsel</label>
+                        <input type="file" accept=".png,.jpg,.jpeg" class="form-control mb-2" name="ImageURL" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="City" class="f mb-2">Şehir</label>
+                        <input type="text" class="form-control mb-2" asp-for="City" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="Location" class="f mb-2">Adres</label>
+                        <input type="text" class="form-control mb-2" asp-for="Location" />
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="Price" class="f mb-2">Fiyat</label>
+                        <input type="text" class="form-control mb-2" asp-for="Price" />
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="Status" class="f mb-2">Durum</label>
+                        <div class="position-relative">
+                            <select id="property-status" asp-for="Status" class="form-control mb-2">
+                                <option value="Satılık">Satılık</option>
+                                <option value="Kira">Kira</option>
+                            </select>
+                            <span class="position-absolute top-50 end-0 translate-middle-y me-2">
+                                <i class="fa fa-caret-down"></i> <!-- İkon: ok simgesi -->
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="Sqft" class="f mb-2">Metrekare</label>
+                        <input type="text" class="form-control mb-2" asp-for="Sqft" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="BedCount" class="f mb-2">Oda Sayısı</label>
+                        <input type="text" class="form-control mb-2" asp-for="BedCount" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="BathCount" class="f mb-2">Banyo Sayısı</label>
+                        <input type="text" class="form-control mb-2" asp-for="BathCount" />
+                    </div>
+
+                    @if (ViewBag.UserRole == "EstateAgent")
+                    {
+                        <input type="hidden" asp-for="PropertyAgentId" value="@ViewBag.propertyAgentId" />
+                    }
+                    else {
+                        <div class="my-2">
+                            <label asp-for="PropertyAgentId" class="f mb-2">Emlakçı</label>
+                            <div class="position-relative">
+                                @Html.DropDownListFor(x => x.PropertyAgentId, (List<SelectListItem>)ViewBag.propertyAgentItems, new { @class = "form-control mb-2" })
+                                <span class="position-absolute top-50 end-0 translate-middle-y me-2">
+                                    <i class="fa fa-caret-down"></i> <!-- İkon: ok simgesi -->
+                                </span>
+                            </div>
+                        </div>
+                    }
+                                      
+                    <div class="my-2">
+                        <label asp-for="PropertyTypeId" class="f mb-2">Mülk Tipi</label>
+                        <div class="position-relative">
+                            @Html.DropDownListFor(x => x.PropertyTypeId, (List<SelectListItem>)ViewBag.propertyTypeItems, new { @class = "form-control mb-2" })
+                            <span class="position-absolute top-50 end-0 translate-middle-y me-2">
+                                <i class="fa fa-caret-down"></i> <!-- İkon: ok simgesi -->
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="Slider-center mb-4 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2" id="btn-create-property">Ekle</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/Property/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+

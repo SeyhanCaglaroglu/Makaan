@@ -1,0 +1,88 @@
+﻿@model List<ResultPropertyTypeDto>
+
+<div id="dsearch" class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+    <div class="container">
+        <div class="row g-2">
+            <form method="get" action="/Property/Index" class="form" style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+
+                <div class="col-md-10">
+                    <div class="row g-2">
+
+                        <div class="col-md-4">
+                            <select id="property-type" name="propertyTypeId" class="form-select border-0 py-3">
+                                <option disabled selected hidden>Mülk Tipi</option>
+                                <option value="Tümü">Tüm Kategoriler</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.PropertyTypeId">@item.PropertyName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="property-status" name="status" class="form-select border-0 py-3">
+                                <option disabled selected hidden>Mülk Durumu</option>
+                                <option value="Tümü">Tümü</option>
+                                <option value="Satılık">Satılık</option>
+                                <option value="Kira">Kira</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="city-select" name="City" class="form-select border-0 py-3">
+                                <option disabled selected hidden>
+                                    Şehir
+                                </option>
+
+                                <option value="Tümü">Tüm Şehirler</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" >
+                    <button type="submit" id="search-button" class="btn btn-dark border-0 w-100 py-3" disabled>Ara</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Türkiye'nin illerini içeren dizi
+    const cities = [
+        "Adana", "Adıyaman", "Afyonkarahisar", "Aksaray", "Amasya", "Ankara", "Antalya", "Ardahan",
+        "Artvin", "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale",
+        "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Düzce", "Edirne", "Elazığ", "Erzincan", "Erzurum",
+        "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Iğdır", "Isparta", "İstanbul",
+        "İzmir", "Kahramanmaraş", "Karabük", "Karaman", "Kastamonu", "Kayseri", "Kırıkkale", "Kırklareli",
+        "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Mardin", "Mersin", "Muğla", "Muş",
+        "Nevşehir", "Niğde", "Ordu", "Osmaniye", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas",
+        "Şanlıurfa", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Uşak", "Van", "Yalova", "Yozgat", "Zonguldak"
+    ];
+
+    // Select elementleri
+    const propertyType = document.getElementById('property-type');
+    const propertyStatus = document.getElementById('property-status');
+    const citySelect = document.getElementById('city-select');
+    const searchButton = document.getElementById('search-button');
+
+    // İller listesini ekle
+    cities.forEach(city => {
+        const option = document.createElement('option');
+        option.value = city;
+        option.textContent = city;
+        citySelect.appendChild(option);
+    });
+
+    // Butonun durumunu kontrol et
+    function checkButtonState() {
+        const isPropertyTypeSelected = propertyType.selectedIndex > 0;
+        const isPropertyStatusSelected = propertyStatus.selectedIndex > 0;
+        const isCitySelected = citySelect.selectedIndex > 0;
+
+        searchButton.disabled = !(isPropertyTypeSelected && isPropertyStatusSelected && isCitySelected);
+    }
+
+    // Değişiklikleri izleyen olay dinleyicileri
+    propertyType.addEventListener('change', checkButtonState);
+    propertyStatus.addEventListener('change', checkButtonState);
+    citySelect.addEventListener('change', checkButtonState);
+</script>

@@ -1,0 +1,87 @@
+﻿@model UserDetailViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section py-5" style="background-color: #f4f5f7;">
+    <div class="container">
+        <div class="card shadow-sm rounded">
+            @if (ViewData["SuccessResetPasswordMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @ViewData["SuccessResetPasswordMessage"]
+                </div>
+            }
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Profil Bilgileri</h5>
+            </div>
+            <div class="card-body mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="fw-bold">Kullanıcı Adı:</label>
+                        <p>
+                            @(Model.UserName.Length > 1
+                                ? Model.UserName.Insert(Model.UserName.Skip(1).TakeWhile(c => !char.IsUpper(c)).Count() + 1, " ")
+                                : Model.UserName)
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Email:</label>
+                        <p>@Model.Email</p>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Şehir Bilgisi:</label>
+                        <p>@Model.City</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer text-end">
+                <a href="/Admin/Profile/ResetPassword" class="btn btn-warning me-2"><i class="bi bi-unlock me-2"></i>Şifremi Güncelle</a>
+                <!-- Silme butonunu tıklayınca Modal'ı açacak -->
+                <a href="javascript:void(0);" class="btn btn-danger" onclick="showConfirmationModal()">
+                    <i class="bi bi-trash"></i> Hesabımı Sil
+                </a>
+            </div>
+            <!-- Silme işlemi için form -->
+            <form id="deleteUserForm" method="post" action="/Admin/Profile/DeleteUser">
+                <!-- Gizli bir input ile e-posta değerini gönderiyoruz -->
+                <input type="hidden" id="userEmail" name="email" value="@Model.Email" />
+
+                <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel">Hesap Silme Onayı</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Hesabınızı silmek istediğinize emin misiniz? Bu işlem geri alınamaz!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                                <!-- Formu gönderme butonu -->
+                                <button type="submit" class="btn btn-danger">Evet, Sil</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<script>
+            function showConfirmationModal() {
+        // Modal'ı aç
+        var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        confirmModal.show();
+
+        // E-posta bilgisini gizli input'a yerleştir
+        document.getElementById('userEmail').value = '@Model.Email';
+    }
+
+
+</script>

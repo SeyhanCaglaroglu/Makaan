@@ -1,0 +1,73 @@
+﻿@model ReceiveMessagesAndUsersViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+    int count = 0;
+}
+
+<section class="section py-3 px-3" style="background-color: #f4f5f7;">
+    @if (TempData["SuccessReplyToMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show p-2 position-relative text-center" role="alert">
+            @TempData["SuccessReplyToMessage"]
+            <button type="button" class="btn-close position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    }
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h1 class="text-dark fw-bold">@(ViewBag.UserRole == "Admin" ? "Gelen Mesajlar" : "Gönderilen Mesajlar")</h1>
+
+        </div>
+
+        <div class="table-responsive rounded shadow-sm bg-white p-4">
+            <a href="/Admin/ReceivedMessage/DeleteAllReceivedMessage" class="btn btn-outline-danger my-4"><i class="bi bi-trash text-danger me-1"></i>Tümünü Sil</a>
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th scope="col" class="col-1">#</th>
+                        @if (ViewBag.UserRole == "Admin")
+                        {
+                            <th scope="col" class="col-4">Gönderen</th>
+                        }
+                        <th scope="col" class="col-5">Konu</th>
+                        
+
+                        <th scope="col" class="col-1">Sil</th>
+                        <th scope="col" class="col-1">Görüntüle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.resultReceivedMessageDtos.OrderByDescending(x=>x.ReceivedMessageId))
+                    {
+                        var sender = Model.userDetailViewModels.FirstOrDefault(x => x.Id == item.SenderId);
+                        count++;
+                        <tr class="text-center">
+                            <td class="col-1">@count</td>
+                            @if (ViewBag.UserRole == "Admin")
+                            {
+                                <td class="col-4">@(sender != null ? sender.Email : "Bilinmeyen Kullanıcı")</td>
+                            }
+                            <td class="col-5">@item.Subject</td>
+
+                            
+                            <td class="col-1">
+                                <!-- Sil Butonu -->
+                                <a href="/Admin/ReceivedMessage/DeleteReceivedMessage?id=@item.ReceivedMessageId">
+                                    <i class="bi bi-trash fs-4 text-danger"></i>
+                                </a>
+                            </td>
+                            <td class="col-1">
+                                <!-- Güncelle Butonu -->
+                                <a href="/Admin/ReceivedMessage/GetByIdReceivedMessage/@item.ReceivedMessageId">
+                                    <i class="bi bi-eye fs-4 text-primary"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+

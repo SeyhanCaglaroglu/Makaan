@@ -1,0 +1,37 @@
+﻿@model CreatePropertyImageDto
+@{
+    ViewData["Title"] = "CreatePropertyImage";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mülk Görseli Ekleme Sayfası</h5>
+
+                <form method="post" enctype="multipart/form-data">
+                    <div class="my-2">
+                        <label asp-for="ImageUrl" class="f mb-2">Mülk Görseli</label>
+                        <input type="file" accept=".png,.jpg,.jpeg" class="form-control mb-2" name="ImageURL" />
+                    </div>
+
+                    <input type="hidden" value="@ViewBag.Id" name="PropertyId" />
+
+                    <div class="Slider-center mb-4 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2 ">Ekle</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/PropertyImage/Index?id=@ViewBag.Id" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+

@@ -1,0 +1,45 @@
+﻿@model GetByIdIntroTextAreaDto
+@{
+    ViewData["Title"] = "UpdateIntroText";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Hakkımızda Alanı Güncelleme Sayfası</h5>
+
+                <form method="post">
+                    <input type="hidden" asp-for="IntroTextAreaId" />
+
+                    <div class="my-2">
+                        <label asp-for="Title" class="f my-2">Açıklama</label>
+                        <input type="text" class="form-control my-2" asp-for="Title" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="SubTitle" class="f my-2">Adres</label>
+                        <input type="text" class="form-control my-2" asp-for="SubTitle" />
+                    </div>
+                    
+                    <div class="text-center mb-4 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2 ">Güncelle</button>
+                    </div>
+
+                </form>
+
+
+
+
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/IntroText/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+

@@ -1,0 +1,61 @@
+﻿@model List<ResultEstateAgentApplicationDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+    int count = 0;
+}
+
+<section class="section py-5" style="background-color: #f4f5f7;">
+    @if (TempData["ConfirmationMessage"] != null)
+    {
+        <div class="alert alert-primary alert-dismissible fade show p-2" role="alert">
+            @TempData["ConfirmationMessage"]
+            <button type="button" class="btn-close mb-1" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-dark fw-bold">Emlakçı Başvuruları</h1>
+            @* <a href="/Admin/EstateAgentApplication/CreateEstateAgentApplication" class="btn btn-primary shadow-sm">
+                <i class="bi bi-plus-circle"></i> Emlakçı Ekle
+            </a> *@
+        </div>
+
+        <div class="table-responsive rounded shadow-sm bg-white p-4">
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col" class="col-2">Şirket Adı</th>
+                        <th scope="col" class="col-2">Yetkili Adı</th>
+                        <th scope="col" class="col-2">Yetkili Numarası</th>
+                        <th scope="col" class="col-2">Şirket Email</th>
+                        <th scope="col" class="col-2">Şehir</th>
+                        <th scope="col" class="col-1">Görüntüle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr class="text-center">
+                            <td class="col-1">@count</td>
+                            <td class="col-2">@item.CompanyName</td>
+                            <td class="col-2">@item.AuthorizedNameSurname</td>
+                            <td class="col-2">@item.AuthorizedPhoneNumber</td>
+                            <td class="col-2">@item.CompanyEmail</td>
+                            <td class="col-2">@item.City</td>                            
+                            <td class="col-1">
+                                <!-- Güncelle Butonu -->
+                                <a href="/Admin/EstateAgentApplication/UpdateEstateAgentApplication/@item.EstateAgentApplicationId">
+                                    <i class="bi bi-eye-fill fs-4 text-dark"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,69 @@
+﻿@model GetByIdPropertyImageDto
+@{
+    ViewData["Title"] = "Intro Slider Güncelleme";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-light">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="PropertyImageId" />
+                        <input type="hidden" asp-for="PropertyId" />
+
+                        <!-- Şuanki Görsel -->
+                        <div class="mb-2 text-center">
+                            <label class="f my-2 card-title text-center">Şuanki Görsel</label>
+                            <div>
+                                <img id="PropertyImageImage" src="@Model.ImageUrl" class="img-fluid rounded" style="width: 100%; max-width: 300px; height: 200px;" />
+                            </div>
+                        </div>
+
+                        <!-- Görsel Seçim -->
+                        <div class="mb-2">
+                            <input id="PropertyImageImageUrl" type="text" class="form-control" asp-for="ImageUrl" readonly style="display:none" />
+                        </div>
+
+                        <div class="d-flex justify-content-center mb-2">
+                            <button type="button" id="PropertyImageFileButton" class="btn btn-outline-dark btn-block w-50 my-4">Görsel Seç</button>
+                            <input id="PropertyImageImageFile" name="ImageURL" type="file" accept=".png,.jpg,.jpeg" style="display:none;" />
+                        </div>
+
+                        <!-- Güncelleme Butonu -->
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-primary px-4 py-2 w-100">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geri Butonu -->
+        <div class="mt-4">
+            <a href="/Admin/PropertyImage/Index?id=@Model.PropertyId" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Görsel Seçme İşlemi
+    document.getElementById('PropertyImageFileButton').addEventListener('click', function () {
+        document.getElementById('PropertyImageImageFile').click();
+    });
+
+    document.getElementById('PropertyImageImageFile').addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        if (file) {
+            // Yeni görsel URL'sini okuyarak önizleme
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('PropertyImageImage').src = e.target.result;
+                // Yeni seçilen dosyanın URL'ini input'a ekle
+                document.getElementById('PropertyImageImageUrl').value = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>

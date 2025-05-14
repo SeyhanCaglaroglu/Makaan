@@ -1,0 +1,89 @@
+﻿@model List<ResultMemberCommentDto>
+
+<div class="container-xxl py-5">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-3">Sizden Gelen Yorumlar!</h1>
+            <p>Müşterilerimizden aldığımız geri bildirimler, hizmet kalitemizi daha da ileriye taşıyor. Her deneyim, bizim için değerli ve her yorumu dikkatle değerlendiriyoruz.</p>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+
+            @foreach (var item in Model)
+            {
+                <div class="testimonial-item bg-light rounded p-3">
+                    <div class="bg-white border rounded p-4">
+                        <p>@item.Comment</p>
+                        <div class="d-flex align-items-center fixed-content ms-3 mb-3">
+                            <img class="img-fluid flex-shrink-0 rounded" src="~/SiteLayout/img/member.png" style="width: 45px; height: 45px;">
+                            <div class="ps-3">
+                                <h6 class="fw-bold mb-1">@item.MemberName</h6>
+                                <small>Üye</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .testimonial-item {
+        height: 200px; /* Sabit yükseklik, ihtiyaca göre ayarlayabilirsiniz */
+        overflow: hidden; /* İçerik taşarsa gizler */
+    }
+
+        .testimonial-item .bg-white {
+            height: 100%; /* İçerik kutusunun tüm yüksekliği kapsaması için */
+            display: flex;
+            flex-direction: column;
+        }
+
+            .testimonial-item .bg-white p {
+                flex-grow: 1; /* Yorum alanı gerektiği kadar büyüsün, ama sabit yüksekliği aşmasın */
+            }
+
+        /* Kullanıcı ismi ve resmi için sabit alan */
+        .testimonial-item .fixed-content {
+            position: absolute;
+            left: 15px; /* Soldan boşluk */
+            bottom: 15px; /* Alttan boşluk */
+        }
+
+        /* Yorum metni ve diğer içerik, sabit alanın dışına taşmasın */
+        .testimonial-item .bg-white p {
+            margin-bottom: 50px; /* Sabit alandan önce boşluk bırak */
+        }
+</style>
+
+
+@* Yorum Yap *@
+<div>
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+        <h1 class="mb-3">Yorum Yap</h1>
+        <p class="mb-4">Düşüncelerinizi bizimle paylaşın! Geri bildirimleriniz, daha iyi hizmet sunmamıza yardımcı olur.</p>
+        <form method="post" action="/Comment/Feature">
+            <div class="row g-3">
+
+
+                <div class="col-12">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Yorumunuz..." id="message" style="height: 150px" name="comment"></textarea>
+                        <label for="message">Yorum</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary w-100 py-3" type="submit">Yorumu Gönder</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

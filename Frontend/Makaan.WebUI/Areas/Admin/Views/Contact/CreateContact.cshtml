@@ -1,0 +1,60 @@
+﻿@model CreateContactDto
+@{
+    ViewData["Title"] = "CreateContact";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">İletişim Bilgileri Ekleme Sayfası</h5>
+
+                <form method="post" enctype="multipart/form-data">
+                    <div class="my-2">
+                        <label asp-for="Country" class="f mb-2">Ülke Adı</label>
+                        <input type="text" class="form-control mb-2" asp-for="Country" />
+                    </div>
+                    <div class="my-2">
+                        <label asp-for="City" class="f mb-2">Şehir</label>
+                        <textarea type="text" class="form-control mb-2" asp-for="City" rows="3"></textarea>
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="Location" class="f mb-2">Adres</label>
+                        <input type="text" class="form-control mb-2" asp-for="Location" />
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="Email" class="f mb-2">Email Adresi</label>
+                        <input type="text" class="form-control mb-2" asp-for="Email" />
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="Phone" class="f mb-2">İletişim Numarası</label>
+                        <input type="text" class="form-control mb-2" asp-for="Phone" />
+                    </div>
+
+                    <div class="my-2">
+                        <label asp-for="IntroPosterUrl" class="f mb-2">Giriş Posteri</label>
+                        <input type="file" accept=".png,.jpg,.jpeg" class="form-control mb-2" name="ImageURL" />
+                    </div>
+
+                    <div class="Slider-center mb-4 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2 ">Ekle</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a href="/Admin/Contact/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+
+    </div>
+
+</section>
+
+

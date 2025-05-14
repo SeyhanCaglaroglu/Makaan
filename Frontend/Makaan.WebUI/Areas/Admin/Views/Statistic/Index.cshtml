@@ -1,0 +1,258 @@
+﻿@model List<ResultPropertyTypeDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+
+    var propertyCounts = ViewData["propertyCounts"] as List<int>;
+    var propertyTypes = ViewData["propertyTypes"] as List<ResultPropertyTypeDto>;
+    var index = 0;
+}
+@section Scripts{
+
+    <script src="~/js/statistic_signalR.js"></script>
+}
+
+<section class="section dashboard py-4" style="background-color: #f4f5f7;">
+
+    
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-dark fw-bold">Denetim Paneli</h2>
+        </div>
+
+        
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">En Düşük ve En Yüksek Kira Değerleri</h5>
+
+                        <!-- Bar Chart -->
+                        <canvas id="barChart" style="max-height: 400px;"></canvas>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                              new Chart(document.querySelector('#barChart'), {
+                                type: 'bar',
+                                data: {
+                                  labels: ['En Düşük Kira Fiyatı', 'En Yüksek Kira Fiyatı'],
+                                  datasets: [{
+                                    label: 'Kira',
+                                    data: [@ViewBag.minPricedRent, @ViewBag.highestPricedRent],
+                                    backgroundColor: [
+                                      'rgba(255, 205, 86, 0.2)',
+                                      'rgba(75, 192, 192, 0.2)'
+                                      
+                                    ],
+                                    borderColor: [
+                                      'rgb(255, 205, 86)',
+                                      'rgb(75, 192, 192)'                                      
+                                    ],
+                                    borderWidth: 1
+                                  }]
+                                },
+                                options: {
+                                  scales: {
+                                    y: {
+                                      beginAtZero: true
+                                    }
+                                  }
+                                }
+                              });
+                            });
+                        </script>
+                        <!-- End Bar Chart -->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">En Düşük ve En Yüksek Satılık Değerleri</h5>
+
+                        <!-- Bar Chart -->
+                        <canvas id="bar2Chart" style="max-height: 400px;"></canvas>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                              new Chart(document.querySelector('#bar2Chart'), {
+                                type: 'bar',
+                                data: {
+                                  labels: ['En Düşük Satılık Fiyat', 'En Yüksek Satılık Fiyat'],
+                                  datasets: [{
+                                    label: 'Satılık',
+                                    data: [@ViewBag.MinPricedSale,@ViewBag.HighestPricedSale],
+                                    backgroundColor: [
+                                      'rgba(255, 99, 132, 0.2)',
+                                      'rgba(54, 162, 235, 0.2)'
+                                    ],
+                                    borderColor: [
+                                      'rgb(255, 99, 132)',
+                                      'rgb(54, 162, 235)'                                      
+                                    ],
+                                    borderWidth: 1
+                                  }]
+                                },
+                                options: {
+                                  scales: {
+                                    y: {
+                                      beginAtZero: true
+                                    }
+                                  }
+                                }
+                              });
+                            });
+                        </script>
+                        <!-- End Bar Chart -->
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Kategoriye Ait Mülk Sayıları</h5>
+
+                        <!-- Pie Chart -->
+                        <div id="pieChart" style="min-height: 400px;" class="echart"></div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                                // Razor ile ViewData ve Model'den gelen verileri JavaScript'e aktarıyoruz
+                                const propertyCounts = @Html.Raw(Json.Serialize(ViewData["propertyCounts"])); // Sayılar
+                                const propertyTypes = @Html.Raw(Json.Serialize(Model)); // PropertyType nesneleri
+
+                                // Verileri uygun ECharts formatına dönüştürüyoruz
+                                const chartData = propertyTypes.map((type, index) => ({
+                                    name: type.propertyName, // PropertyName
+                                    value: propertyCounts[index] // Karşılık gelen sayı
+                                }));
+
+                                // Grafik oluşturuluyor
+                                echarts.init(document.querySelector("#pieChart")).setOption({
+                                    title: {
+                                        show: false // Başlığı kaldır
+                                    },
+                                    tooltip: {
+                                        trigger: 'item',
+                                        formatter: '{b}: {c}' // Sadece kategori adı ve sayı göster
+                                    },
+                                    legend: {
+                                        orient: 'vertical',
+                                        left: 'left',
+                                        data: chartData.map(item => item.name), // Legend'da kategori isimlerini göster
+                                        show: true // Legend kısmını aktif hale getirdik
+                                    },
+                                    series: [{
+                                        type: 'pie',
+                                        radius: '70%',
+                                        data: chartData, // Dinamik veri
+                                        emphasis: {
+                                            itemStyle: {
+                                                shadowBlur: 10,
+                                                shadowOffsetX: 0,
+                                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                            }
+                                        }
+                                    }]
+                                });
+                            });
+                        </script>
+                        <!-- End Pie Chart -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card info-card sales-card">
+
+                    
+
+                    <div class="card-body">
+                        <h5 class="card-title">Mülk Sayısı</h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-house-door-fill"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="statistic-propertycount">@ViewBag.PropertiesCount</h6>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End Sales Card -->
+            <div class="col-md-6">
+                <div class="card info-card sales-card">
+                                       
+                    <div class="card-body">
+                        <h5 class="card-title">Kategori Sayısı</h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-list-ul"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="statistic-propertyTypeCount">@ViewBag.PropertyTypesCount</h6>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End Sales Card -->
+            <div class="col-md-6">
+                <div class="card info-card sales-card">
+                                        
+                    <div class="card-body">
+                        <h5 class="card-title">Emlakçı Sayısı</h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-briefcase"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="statistic-EstateAgentCount">@ViewBag.EstateAgentCount</h6>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End Sales Card -->
+            <div class="col-md-6">
+                <div class="card info-card sales-card">
+                                      
+                    <div class="card-body">
+                        <h5 class="card-title">Üye Sayısı</h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6 id="statistic-MemberCount">@ViewBag.MemberUsers</h6>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End Sales Card -->
+        </div>
+    </div>
+</section>

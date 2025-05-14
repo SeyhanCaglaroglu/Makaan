@@ -1,0 +1,246 @@
+﻿/* Genel Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Makaan Title */
+.title {
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    font-size: 45px;
+    color: #00b98e;
+    font-weight: bold;
+    
+    letter-spacing: 3px;
+    animation: fadeInTitle 1.5s ease-out;
+    z-index: 10;
+}
+
+/* Keyframe for title fade-in effect */
+@keyframes fadeInTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Login Form Container */
+.login-container {
+    background-color: #fff;
+    padding: 40px 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 650px;
+    text-align: center;
+    animation: fadeInForm 2s ease-out;
+    z-index: 10;
+}
+
+/* Fade-in form animation */
+@keyframes fadeInForm {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Inputs */
+.login-container input {
+    width: 100%;
+    padding: 10px; /* padding'i küçültüyoruz */
+    border-radius: 8px; /* daha ince köşeler */
+    margin: 8px 0; /* margin'i küçültüyoruz */
+    border: 2px solid #ccc;
+    font-size: 14px; /* font boyutunu küçültüyoruz */
+    outline: none;
+    box-sizing: border-box;
+}
+
+    /* Inputlara focus olduğunda sınır rengini değiştirme */
+    .login-container input:focus {
+        border-color: #00b98e;
+    }
+
+/* Validation mesajlarının görünümünü iyileştirme */
+span.text-danger {
+    font-size: 12px; /* küçük font boyutu */
+    color: #d9534f; /* kırmızı rengini koyulaştırma */
+    margin-top: 5px;
+    display: block; /* mesajları blok seviyesinde göster */
+}
+
+/* Button */
+.login-container button {
+    width: 100%;
+    padding: 12px; /* padding'i küçültüyoruz */
+    background-color: #00b98e;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px; /* font boyutunu küçültüyoruz */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+    height: 45px; /* Yükseklik sabit */
+}
+
+    /* Hover durumunda buton rengini değiştirme */
+    .login-container button:hover {
+        background-color: #57a977;
+    }
+
+/* Kayıt Ol Button */
+.signup-button {
+    width: 100%;
+    padding: 12px; /* padding'i küçültüyoruz */
+    background-color: #ff7f00; /* Kayıt ol butonunun rengini turuncu yapalım */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px; /* font boyutunu küçültüyoruz */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+    box-sizing: border-box;
+    height: 45px; /* Yükseklik sabit */
+}
+
+    .signup-button:hover {
+        background-color: #ff5c00; /* Hoverda biraz daha koyu turuncu */
+        transform: scale(1.05); /* Hoverda buton biraz büyüsün */
+    }
+
+/* Forgot Password Link */
+.forgot-password {
+    display: block;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #00b98e;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+    .forgot-password:hover {
+        color: #57a977;
+    }
+
+/* "Zaten bir hesabınız var mı?" Text and Link */
+.account-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: gray;
+    position: absolute;
+    top: 8px; /* Üstten biraz boşluk */
+    left: 12px; /* Soldan boşluk */
+}
+
+    .account-link a {
+        color: gray;
+        text-decoration: none;
+    }
+
+        .account-link a:hover {
+            text-decoration: underline;
+        }
+
+/* Bubbles */
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.bubble {
+    position: absolute;
+    background-color: #00b98e;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: bubbleAnimation 10s infinite ease-in-out;
+    transform: initial;
+}
+
+/* Bigger Bubbles with random positions */
+.bubble-1 {
+    width: 60px;
+    height: 60px;
+    top: 30%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.bubble-2 {
+    width: 70px;
+    height: 70px;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: 2s;
+}
+
+.bubble-3 {
+    width: 65px;
+    height: 65px;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: 4s;
+}
+
+.bubble-4 {
+    width: 75px;
+    height: 75px;
+    top: 50%;
+    right: 10%;
+    animation-delay: 6s;
+}
+
+/* Keyframes for bubble animation */
+@keyframes bubbleAnimation {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    25% {
+        transform: translateY(-200px) translateX(200px);
+    }
+
+    50% {
+        transform: translateY(0) translateX(0);
+    }
+
+    75% {
+        transform: translateY(200px) translateX(-200px);
+    }
+
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+}

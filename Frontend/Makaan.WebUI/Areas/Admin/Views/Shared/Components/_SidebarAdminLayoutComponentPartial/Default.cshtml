@@ -1,0 +1,160 @@
+﻿@{
+    var UserRole = ViewBag.UserRole;
+    var Controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+}
+
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/Default/Index">
+                <i class="bi bi-geo-fill"></i>
+                <span>Sayfaya Git</span>
+            </a>
+        </li><!-- End Default Nav -->
+
+        @if (UserRole == "Admin")
+        {
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "Statistic" ? "" : "collapsed")" href="/Admin/Statistic/Index">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Denetim Paneli</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "IntroText" ? "" : "collapsed")" href="/Admin/IntroText/Index">
+                    <i class="bi bi-grid"></i>
+                    <span>Giriş Yazısı</span>
+                </a>
+            </li>
+
+            <!-- End IntroText Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "IntroSlider" ? "" : "collapsed")" href="/Admin/IntroSlider/Index">
+                    <i class="bi bi-images"></i>
+                    <span>Giriş Slaytı</span>
+                </a>
+            </li>
+
+            <!-- End IntroSlider Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "PropertyType" ? "" : "collapsed")" href="/Admin/PropertyType/Index">
+                    <i class="bi bi-house-door"></i>
+                    <span>Mülk Tipleri</span>
+                </a>
+            </li>
+
+            <!-- End PropertyType Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "FeaturedAbout" ? "" : "collapsed")" href="/Admin/FeaturedAbout/Index">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Hakkımızda Alanı</span>
+                </a>
+            </li>
+
+           
+        }
+
+        
+        @if (UserRole == "Admin" || UserRole == "EstateAgent")
+        {
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "Property" || Controller == "PropertyIntroPoster" || Controller == "PropertyDetail" ? "" : "collapsed")" href="/Admin/Property/Index">
+
+                    <i class="fa fa-city"></i>
+                    <span>Mülkler</span>
+                </a>
+            </li>
+
+            <!-- End Property Nav -->
+        }
+
+        @if (UserRole == "Admin")
+        {
+            <!-- End FeaturedAbout Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "PropertyAgent" ? "" : "collapsed")" href="/Admin/PropertyAgent/Index">
+                    <i class="bi bi-briefcase"></i>
+                    <span>Öne Çıkan Emlak Ajansları</span>
+                </a>
+            </li>
+
+            <!-- End PropertyAgent Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "MemberComment" || ViewContext.RouteData.Values["Controller"]?.ToString() == "ContactIntroPoster" ? "" : "collapsed")" href="/Admin/MemberComment/Index">
+                    <i class="bi bi-chat"></i>
+                    <span>Yorumlar</span>
+                </a>
+            </li>
+
+            <!-- End PropertyAgent Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "EstateAgentApplication" ? "" : "collapsed")" href="/Admin/EstateAgentApplication/Index">
+                    <i class="bi bi-file-earmark-person"></i>
+                    <span>Emlakçı Başvuruları</span>
+                </a>
+            </li>
+
+            <!-- End EstateAgentApplication Nav -->
+
+
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "Contact" ? "" : "collapsed")" href="/Admin/Contact/Index">
+                    <i class="fa fa-address-card"></i>
+                    <span>İletişim Bilgileri</span>
+                </a>
+            </li>
+
+            <!-- End Contact Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "Member" ? "" : "collapsed")" href="/Admin/Member/Index">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Üyeler</span>
+                </a>
+            </li>
+
+            <!-- End Members Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "EstateAgent" ? "" : "collapsed")" href="/Admin/EstateAgent/Index">
+                    <i class="bi bi-person-badge-fill"></i>
+                    <span>Emlakçılar</span>
+                </a>
+            </li>
+
+            <!-- End EstateAgentApplication Nav -->
+        }
+        
+        @if (UserRole != "Admin")
+        {
+            <li class="nav-item">
+                <a class="nav-link @(Controller == "Profile" ? "" : "collapsed")" href="/Admin/Profile/Index">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Profil Bilgileri</span>
+                </a>
+            </li>
+
+            <!-- End EstateAgentApplication Nav -->
+        }
+        
+
+        <li class="nav-item">
+            <a class="nav-link @(Controller == "ReceivedMessage" || Controller == "SenderedMessage" ? "" : "collapsed")" href="@(UserRole == "Admin" ? "/Admin/ReceivedMessage" : "/Admin/SenderedMessage")">
+
+                <i class="bi bi-chat-left-dots-fill"></i>
+                <span>Mesajlar</span>
+            </a>
+        </li><!-- End EstateAgentApplication Nav -->
+
+    </ul>
+
+</aside>

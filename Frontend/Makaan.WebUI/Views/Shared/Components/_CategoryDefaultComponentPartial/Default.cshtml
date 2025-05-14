@@ -1,0 +1,35 @@
+﻿@model List<ResultPropertyTypeDto>
+@{
+    var propertyCounts = ViewData["propertyCounts"] as List<int>;
+    var index = 0;
+}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-3">Mülk Tipleri</h1>
+            <p>Emlak tipleri hakkında daha fazla bilgi edinmek için doğru yerdesiniz. Farklı ihtiyaçlarınıza uygun çok sayıda mülk tipi seçeneği ile aradığınız mülkü kolayca bulabilirsiniz.</p>
+        </div>
+        <div class="row g-4">
+            
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <a class="cat-item d-block bg-light text-center rounded p-3" href="/Property/Index?propertyTypeId=@item.PropertyTypeId">
+                        <div class="rounded p-4">
+                            <div class="icon mb-3">
+
+                                <img class="img-fluid" src="@item.PropertyIconUrl" alt="Icon" style="width:45px;height:45px;">
+                            </div>
+                            <h6>@item.PropertyName</h6>
+                            <span>@propertyCounts?[index] Adet</span>
+                            @{
+                                index++;
+                            }
+                        </div>
+                    </a>
+                </div>
+            }
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿@model List<ResultPropertyDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<!-- Header Start -->
+@await Component.InvokeAsync("_HeaderPropertyComponentPartial")
+<!-- Header End -->
+<!-- Search Start -->
+@await Component.InvokeAsync("_SearchDefaultComponentPartial")
+<!-- Search End -->
+<!-- Property List Start -->
+@await Component.InvokeAsync("_PropertyListDefaultComponentPartial", new { propertyTypeId = ViewBag.PropertyTypeId, status = ViewBag.Status, City = ViewBag.City, page = ViewBag.Page })
+<!-- Property List End -->
+

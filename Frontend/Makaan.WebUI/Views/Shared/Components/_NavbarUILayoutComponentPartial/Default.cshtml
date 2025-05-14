@@ -1,0 +1,57 @@
+﻿@model List<ResultPropertyTypeDto>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var PropertyType = HttpContextAccessor.HttpContext.Request.Query["propertyTypeId"].ToString();
+    var Controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+}
+<div class="container-fluid nav-bar bg-transparent">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
+        <a href="index.html" class="navbar-brand d-flex align-items-center text-center">
+            <div class="icon p-2 me-2">
+                <img class="img-fluid" src="~/SiteLayout/img/icon-deal.png" alt="Icon" style="width: 30px; height: 30px;">
+            </div>
+            <h1 class="m-0 text-primary">Makaan</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto">
+                <a href="/Default/Index" class="nav-item nav-link @(Controller == "Default" ? "active" : "")">Anasayfa</a>
+                <a href="/About/Index" class="nav-item nav-link @(Controller == "About" ? "active" : "")">Hakkımızda</a>
+                <a href="/Property/Index" class="nav-item nav-link @(Controller == "Property" || Controller == "PropertyDetail" ? "active" : "")">Mülkler</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Kategorİler</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+
+                        @foreach (var item in Model)
+                        {
+                            <a href="/Property/Index?propertyTypeId=@item.PropertyTypeId" class="dropdown-item @(PropertyType == item.PropertyTypeId ? "active" : "")">@item.PropertyName</a>
+
+                        }
+                        
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle @(Controller == "Comment" ? "active" : "")" data-bs-toggle="dropdown">Sayfalar</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="/Comment/Index" class="dropdown-item @(Controller == "Comment" ? "active" : "")">Yorum Yap</a>
+                        <a href="/Account/Login" class="dropdown-item">Giriş Yap</a>
+                        <a href="/Account/SignUp" class="dropdown-item">Kayıt Ol</a>
+                    </div>
+                </div>
+                <a href="/Contact/Index" class="nav-item nav-link @(Controller == "Contact" ? "active" : "")">İletİşİm</a>
+            </div>
+            <a href="/EstateAgentApplication/Index" class="btn btn-primary px-3 d-none d-lg-flex">Ortaklık Başvurusu</a>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a href="@(ViewBag.UserRole == "Admin" ? "/Admin/Statistic" : ViewBag.UserRole == "EstateAgent" ? "/Admin/Property" : "/Admin/Profile")" class="ms-5 mt-1">
+                    <i class="bi bi-person-fill text-primary fs-2 "></i>
+                </a>
+            }
+            
+        </div>
+    </nav>
+</div>

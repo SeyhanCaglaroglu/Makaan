@@ -1,0 +1,130 @@
+﻿@model GetByIdFeaturedAboutDto
+@{
+    ViewData["Title"] = "Hakkımızda Alanı Güncelleme";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow-sm border-light">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Hakkımızda Alanı Güncelleme Sayfası</h5>
+
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="FeaturedAboutId" />
+
+                        <!-- Şuanki Poster -->
+                        <div class="row mb-4">
+                            <div class="col-12 col-md-6 text-center">
+                                <label class="f my-2 card-title">Şuanki Poster</label>
+                                <div>
+                                    <img id="FeatureAboutPoster" src="@Model.IntroPosterUrl" class="img-fluid rounded" style="width: 100%; max-width: 400px; height: 270px;" />
+                                </div>
+                                <div class="mt-2">
+                                    <button type="button" id="FeatureAboutPosterFileButton" class="btn btn-outline-dark w-75 mt-3">Poster Seç</button>
+                                </div>
+                                <input id="FeatureAboutPosterFile" name="PosterURL" type="file" accept=".png,.jpg,.jpeg" style="display:none;" />
+                            </div>
+
+                            <!-- Şuanki Görsel -->
+                            <div class="col-12 col-md-6 text-center">
+                                <label class="f my-2 card-title">Şuanki Görsel</label>
+                                <div>
+                                    <img id="FeatureAboutImage" src="@Model.ImageUrl" class="img-fluid rounded" style="width: 100%; max-width: 400px; height: 270px;" />
+                                </div>
+                                <div class="mt-2">
+                                    <button type="button" id="FeatureAboutFileButton" class="btn btn-outline-dark w-75 mt-3">Görsel Seç</button>
+                                </div>
+                                <input id="FeatureAboutImageFile" name="ImageURL" type="file" accept=".png,.jpg,.jpeg" style="display:none;" />
+                            </div>
+                        </div>
+
+                        <!-- Poster Seçim -->
+                        <div class="mb-2">
+                            <input id="FeatureAboutPosterUrl" type="text" class="form-control" asp-for="IntroPosterUrl" readonly style="display:none" />
+                        </div>
+
+                        <!-- Görsel Seçim -->
+                        <div class="mb-2">
+                            <input id="FeatureAboutImageUrl" type="text" class="form-control" asp-for="ImageUrl" readonly style="display:none" />
+                        </div>
+
+                        <!-- Başlık -->
+                        <div class="my-2">
+                            <label asp-for="Title" class="f my-2">Başlık</label>
+                            <input type="text" class="form-control my-2" asp-for="Title" />
+                        </div>
+
+                        <!-- Açıklama -->
+                        <div class="my-2">
+                            <label asp-for="Description" class="f my-2">Açıklama</label>
+                            <textarea class="form-control my-2" asp-for="Description" rows="3"></textarea>
+                        </div>
+
+                        <!-- Etiketler -->
+                        <div class="my-2">
+                            <label asp-for="Tag1" class="f my-2">Birinci Etiket</label>
+                            <input type="text" class="form-control my-2" asp-for="Tag1" />
+                        </div>
+
+                        <div class="my-2">
+                            <label asp-for="Tag2" class="f my-2">İkinci Etiket</label>
+                            <input type="text" class="form-control my-2" asp-for="Tag2" />
+                        </div>
+
+                        <div class="my-2">
+                            <label asp-for="Tag3" class="f my-2">Üçüncü Etiket</label>
+                            <input type="text" class="form-control my-2" asp-for="Tag3" />
+                        </div>
+
+                        <!-- Güncelleme Butonu -->
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-primary px-4 py-2 w-100">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geri Butonu -->
+        <div class="mt-4">
+            <a href="/Admin/FeaturedAbout/Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Görsel Seçme İşlemi
+    document.getElementById('FeatureAboutFileButton').addEventListener('click', function () {
+        document.getElementById('FeatureAboutImageFile').click();
+    });
+
+    document.getElementById('FeatureAboutImageFile').addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('FeatureAboutImage').src = e.target.result;
+                document.getElementById('FeatureAboutImageUrl').value = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('FeatureAboutPosterFileButton').addEventListener('click', function () {
+        document.getElementById('FeatureAboutPosterFile').click();
+    });
+
+    document.getElementById('FeatureAboutPosterFile').addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('FeatureAboutPoster').src = e.target.result;
+                document.getElementById('FeatureAboutPosterUrl').value = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>

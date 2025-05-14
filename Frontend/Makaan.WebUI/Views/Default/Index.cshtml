@@ -1,0 +1,29 @@
+﻿@model List<ResultPropertyTypeDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<!-- Header Start -->
+@await Component.InvokeAsync("_HeaderDefaultComponentPartial")
+<!-- Header End -->
+<!-- Search Start -->
+@await Component.InvokeAsync("_SearchDefaultComponentPartial")
+<!-- Search End -->
+<!-- Category Start -->
+@await Component.InvokeAsync("_CategoryDefaultComponentPartial")
+<!-- Category End -->
+<!-- About Start -->
+@await Component.InvokeAsync("_AboutDefaultComponentPartial")
+<!-- About End -->
+<!-- Property List Start -->
+@await Component.InvokeAsync("_PropertyListDefaultComponentPartial")
+<!-- Property List End -->
+<!-- Team Start -->
+@await Component.InvokeAsync("_TeamDefaultComponentPartial")
+<!-- Team End -->
+<!-- Testimonial Start -->
+@await Component.InvokeAsync("_TestimonialDefaultComponentPartial")
+<!-- Testimonial End -->
+
+
