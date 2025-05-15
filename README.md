@@ -12,7 +12,6 @@ The project includes the following features:
 - Filtering by property categories (Apartment, Villa, Detached House, etc.)
 - User-friendly interface and detailed property information
 - Management panel for real estate agents
-- Real-time notifications and statistics
 
 Developed using microservice architecture, the project provides high scalability and modularity.
 
